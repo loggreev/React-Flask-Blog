@@ -1,8 +1,9 @@
 import React from 'react'
+import AuthenticationForm from './AuthenticationForm';
 
 function Register() {
     return (
-        <div>Register</div>
+        <AuthenticationForm title="Register"></AuthenticationForm>
     )
 }
 
