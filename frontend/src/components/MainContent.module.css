@@ -1,0 +1,7 @@
+.main-content {
+    margin: 40px 40px;
+}
+
+.blog-posts > *{
+    margin-bottom: 25px;
+}
