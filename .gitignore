@@ -1,0 +1,10 @@
+# dependencies
+node_modules
+
+# virtual environment
+/backend/venv
+
+# build
+/frontend/build
+
+__pycache__

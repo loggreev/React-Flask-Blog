@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import Login from './components/Login';
@@ -13,6 +13,8 @@ function App() {
         <Route path="/" element={<MainContent />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="*" element={<Navigate replace to="/" />} />
+
       </Routes>
     </>
   );
