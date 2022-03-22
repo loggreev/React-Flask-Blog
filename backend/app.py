@@ -59,6 +59,7 @@ def login():
 def register():
     username = request.json["username"]
     password = request.json["password"]
+    # https://passlib.readthedocs.io/en/stable/lib/passlib.hash.pbkdf2_digest.html#passlib.hash.pbkdf2_sha256
     password = pbkdf2_sha256.hash(password)
     user = User(username=username, password=password)
     db.session.add(user)
