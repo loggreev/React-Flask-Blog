@@ -1,16 +1,42 @@
 import styles from './Form.module.css'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { API_URL } from '../App'
+import AuthContext from '../AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const authContext = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(username, password);
+        fetch(`${API_URL}/login/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    username: username,
+                    password: password
+                }
+            ),
+            mode: 'same-origin'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    authContext.login();
+                    navigate('/', { replace: true });
+                }
+            });
     }
 
     return (
