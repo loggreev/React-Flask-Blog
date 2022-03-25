@@ -4,7 +4,6 @@ from flask_login import (
     UserMixin,
     login_user,
     logout_user,
-    current_user,
     login_required,
 )
 from flask_sqlalchemy import SQLAlchemy
@@ -49,8 +48,7 @@ def login():
     db_user = db.session.query(User).filter(User.username == username).one()
     passwords_match = pbkdf2_sha256.verify(password, db_user.password)
     if passwords_match:
-        user = User(id=db_user.id, username=db_user.username, password=db_user.password)
-        login_user(user)
+        login_user(db_user)
         return {"success": True}
     return {"success": False}
 
