@@ -1,10 +1,11 @@
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request
 from flask_login import (
     LoginManager,
     UserMixin,
     login_user,
     logout_user,
     login_required,
+    current_user,
 )
 from flask_sqlalchemy import SQLAlchemy
 from os import getenv
@@ -70,6 +71,14 @@ def register():
 def logout():
     logout_user()
     return {"success": True}
+
+
+@app.route("/api/getuser/", methods=["GET"])
+def get_user():
+    return {
+        "id": current_user.id,
+        "username": current_user.username,
+    }
 
 
 @app.route("/", methods=["GET"])

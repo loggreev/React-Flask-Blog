@@ -32,7 +32,7 @@ function Header() {
                 <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
                     <Nav>
                         {
-                            authContext.isAuthenticated ?
+                            authContext.isAuthenticated() ?
                                 <Nav.Link onClick={logout}>Logout</Nav.Link> :
                                 <>
                                     <Nav.Link as={Link} to="login">Login</Nav.Link>

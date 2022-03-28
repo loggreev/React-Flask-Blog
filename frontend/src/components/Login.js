@@ -33,8 +33,10 @@ function Login() {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    authContext.login();
-                    navigate('/', { replace: true });
+                    const user = authContext.getUser();
+                    authContext.login(user);
+                    //go back one page
+                    navigate(-1);
                 }
             });
     }
