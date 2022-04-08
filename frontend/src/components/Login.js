@@ -31,10 +31,9 @@ function Login() {
             mode: 'same-origin'
         })
             .then(res => res.json())
-            .then(data => {
+            .then(async data => {
                 if (data.success) {
-                    const user = authContext.getUser();
-                    authContext.login(user);
+                    await authContext.login();
                     //go back one page
                     navigate(-1);
                 }

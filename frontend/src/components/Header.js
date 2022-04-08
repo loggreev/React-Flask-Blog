@@ -16,9 +16,9 @@ function Header() {
             mode: 'same-origin'
         })
             .then(res => res.json())
-            .then(data => {
+            .then(async data => {
                 if (data.success) {
-                    authContext.logout();
+                    await authContext.logout();
                 }
             });
 
@@ -30,16 +30,18 @@ function Header() {
                 <Navbar.Brand as={Link} to="/">React-Flask Blog</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-                    <Nav>
-                        {
-                            authContext.isAuthenticated() ?
-                                <Nav.Link onClick={logout}>Logout</Nav.Link> :
-                                <>
-                                    <Nav.Link as={Link} to="login">Login</Nav.Link>
-                                    <Nav.Link as={Link} to="register">Register</Nav.Link>
-                                </>
-                        }
-                    </Nav>
+                    {authContext.isAuthenticated() ?
+                        <>
+                            <span>Hello, {authContext.user.username}!</span>
+                            <Nav><Nav.Link onClick={logout}>Logout</Nav.Link></Nav>
+                        </> :
+                        <>
+                            <Nav>
+                                <Nav.Link as={Link} to="login">Login</Nav.Link>
+                                <Nav.Link as={Link} to="register">Register</Nav.Link>
+                            </Nav>
+                        </>
+                    }
                 </Navbar.Collapse>
             </Container>
         </Navbar>

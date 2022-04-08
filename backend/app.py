@@ -73,12 +73,14 @@ def logout():
     return {"success": True}
 
 
-@app.route("/api/getuser/", methods=["GET"])
+@app.route("/api/get_user/", methods=["GET"])
 def get_user():
-    return {
-        "id": current_user.id,
-        "username": current_user.username,
-    }
+    if not current_user.is_anonymous:
+        return {
+            "success": True,
+            "user": {"id": current_user.id, "username": current_user.username},
+        }
+    return {"success": False}
 
 
 @app.route("/", methods=["GET"])

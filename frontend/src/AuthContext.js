@@ -19,13 +19,15 @@ export function AuthContextProvider(props) {
 
     async function getUser() {
         let user;
-        await fetch(`${API_URL}/getuser/`, {
+        await fetch(`${API_URL}/get_user/`, {
             method: 'GET',
             mode: 'same-origin'
         })
             .then(res => res.json())
             .then(data => {
-                user = data;
+                if (data.success) {
+                    user = data.user;
+                }
             });
 
         return user;
@@ -33,11 +35,11 @@ export function AuthContextProvider(props) {
 
     const isAuthenticated = () => !!user;
 
-    function login(user) {
-        setUser(user);
+    async function login() {
+        setUser(await getUser());
     }
 
-    function logout() {
+    async function logout() {
         setUser(undefined);
     }
 
