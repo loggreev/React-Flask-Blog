@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './BlogPost.module.css'
 import Button from 'react-bootstrap/Button'
 import Stack from 'react-bootstrap/Stack'
+import ModalContext from '../ModalContext'
+import BlogPostModal from './BlogPostModal'
 
 function BlogPost({
     title = "title",
@@ -10,6 +12,20 @@ function BlogPost({
     datePosted = "1/1/11",
     dateUpdated = "2/2/22",
 }) {
+    const modalContext = useContext(ModalContext);
+
+    function showUpdateBlogPostModal() {
+        modalContext.showModal(
+            <BlogPostModal data={
+                {
+                    title: title,
+                    content: content
+                }
+            } />
+        );
+
+    }
+
     return (
         <div className={styles["blog-post"]}>
             <div className={styles['header']}>
@@ -24,7 +40,7 @@ function BlogPost({
                         <span>Date Updated: {dateUpdated}</span>
                     </Stack>
                     <Stack className="actions" direction="horizontal" gap={3}>
-                        <Button variant="primary">Update</Button>
+                        <Button variant="primary" onClick={showUpdateBlogPostModal}>Update</Button>
                         <Button variant="danger">Delete</Button>
                     </Stack>
 
